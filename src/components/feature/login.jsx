@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Input from './common/form/input'
+import Input from '../common/form/input'
 
 class Login extends Component {
   state = {

@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
-import Pagination from './common/pagination'
-import paginate from '../utils/paginate'
-import { getMovies } from './../services/fakeMovieService'
-import { getGenres } from './../services/fakeGenreService'
-import ListGroup from './common/listGroup'
+import Pagination from '../common/utils/pagination'
+import paginate from '../../utils/paginate'
+import { getMovies } from '../../services/fakeMovieService'
+import { getGenres } from '../../services/fakeGenreService'
+import ListGroup from '../common/utils/listGroup'
 import MoviesTable from './moviesTable'
 import _ from 'lodash'
 
