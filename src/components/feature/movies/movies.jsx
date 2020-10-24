@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Component } from 'react'
-import Pagination from '../common/utils/pagination'
-import paginate from '../../utils/paginate'
-import { getMovies } from '../../services/fakeMovieService'
-import { getGenres } from '../../services/fakeGenreService'
-import ListGroup from '../common/utils/listGroup'
-import MoviesTable from './moviesTable'
 import _ from 'lodash'
+import React, { Component } from 'react'
+import ListGroup from './../../common/utils/listGroup'
+import Pagination from './../../common/utils/pagination'
+import { getGenres } from './../../../services/fakeGenreService'
+import { getMovies } from './../../../services/fakeMovieService'
+import paginate from './../../../utils/paginate'
+import MoviesTable from './moviesTable'
 
 class Movies extends Component {
   state = {

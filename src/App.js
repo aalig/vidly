@@ -1,12 +1,12 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import Movies from './components/feature/movies'
+import Movies from './components/feature/movies/movies'
 import NavBar from './components/common/nav/navbar'
-import Customers from './components/feature/customers'
-import Rentals from './components/feature/rentals'
-import Login from './components/feature/login'
+import Customers from './components/feature/customers/customers'
+import Rentals from './components/feature/rentals/rentals'
+import LoginForm from './components/common/form/loginForm'
 import NotFound from './components/common/utils/notFound'
-import MovieForm from './components/feature/movieForm'
+import MovieForm from './components/feature/movies/movieForm'
 import './App.css'
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
           <Route path='/movies' component={Movies} />
           <Route path='/customers' component={Customers} />
           <Route path='/rentals' component={Rentals} />
-          <Route path='/login' component={Login} />
+          <Route path='/login' component={LoginForm} />
           <Route path='/not-found' component={NotFound} />
           <Redirect from='/' exact to='/movies' />
           <Redirect to='/not-found' />
