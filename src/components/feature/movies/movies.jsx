@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import _ from 'lodash'
 import React, { Component } from 'react'
+import { toast } from 'react-toastify'
 import ListGroup from './../../common/utils/listGroup'
 import Pagination from './../../common/utils/pagination'
-import { getGenres } from './../../../services/fakeGenreService'
-import { getMovies } from './../../../services/fakeMovieService'
+import { getGenres } from './../../../services/genreService'
+import { getMovies, deleteMovie } from './../../../services/movieService'
 import paginate from './../../../utils/paginate'
 import MoviesTable from './moviesTable'
+import { Link } from 'react-router-dom'
 
 class Movies extends Component {
   state = {
@@ -17,9 +19,12 @@ class Movies extends Component {
     sortColumn: { path: 'title', order: 'asc' },
   }
 
-  componentDidMount() {
-    const genres = [{ _id: '', name: 'All Genres' }, ...getGenres()]
-    this.setState({ movies: getMovies(), genres, selectedGenre: genres[0] })
+  async componentDidMount() {
+    const { data } = await getGenres()
+    const { data: movies } = await getMovies()
+
+    const genres = [{ _id: '', name: 'All Genres' }, ...data]
+    this.setState({ movies, genres, selectedGenre: genres[0] })
   }
 
   getPgaedData = () => {
@@ -42,9 +47,20 @@ class Movies extends Component {
     return { totalCount: filtered.length, data: movies }
   }
 
-  handleDelete = (id) => {
-    const movies = this.state.movies.filter((m) => m._id !== id)
+  handleAddMovie = () => {}
+
+  handleDelete = async (id) => {
+    const originalMovies = this.state.movies
+    const movies = originalMovies.filter((m) => m._id !== id)
     this.setState({ movies })
+
+    try {
+      await deleteMovie(id)
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404)
+        toast.error('The movie has already been deleted')
+      this.setState({ movies: originalMovies })
+    }
   }
 
   handleLike = (movie) => {
@@ -92,6 +108,9 @@ class Movies extends Component {
           />
         </div>
         <div className='col'>
+          <Link className='btn btn-primary btn-lg mt-2 mb-2' to='/movies/new'>
+            Add Movie
+          </Link>
           <p className='lead'>There are {totalCount} movies in the database</p>
           <MoviesTable
             movies={movies}

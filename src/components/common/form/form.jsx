@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Joi from 'joi-browser'
 import Input from './input'
+import Select from './select'
 
 class Form extends Component {
   state = {
@@ -56,6 +57,17 @@ class Form extends Component {
       type={type}
       name={name}
       label={label}
+      value={this.state.data[name]}
+      onChange={this.handleChange}
+      error={this.state.errors[name]}
+    />
+  )
+
+  rednderSelect = (name, label, options) => (
+    <Select
+      name={name}
+      label={label}
+      options={options}
       value={this.state.data[name]}
       onChange={this.handleChange}
       error={this.state.errors[name]}
