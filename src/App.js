@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import auth from './services/authService'
+import ProtectedRoute from './components/common/utils/protectedRoute'
 import Movies from './components/feature/movies/movies'
 import NavBar from './components/common/nav/navbar'
 import Customers from './components/feature/customers/customers'
@@ -21,14 +22,17 @@ class App extends Component {
   }
 
   render() {
+    const { user } = this.state
     return (
       <React.Fragment>
-        <NavBar user={this.state.user} />
+        <NavBar user={user} />
         <main className='container'>
           <Switch>
-            <Route path='/movies/:id' component={MovieForm} />
-            <Route path='/movies/new' component={MovieForm} />
-            <Route path='/movies' component={Movies} />
+            <ProtectedRoute path='/movies/:id' component={MovieForm} />
+            <Route
+              path='/movies'
+              render={(props) => <Movies {...props} user={user} />}
+            />
             <Route path='/customers' component={Customers} />
             <Route path='/rentals' component={Rentals} />
             <Route path='/login' component={LoginForm} />

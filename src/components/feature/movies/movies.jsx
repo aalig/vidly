@@ -97,6 +97,7 @@ class Movies extends Component {
 
     const { currentPage, pageSize, sortColumn } = this.state
     const { totalCount, data: movies } = this.getPgaedData()
+    const { user } = this.props
 
     return (
       <div className='row'>
@@ -108,9 +109,11 @@ class Movies extends Component {
           />
         </div>
         <div className='col'>
-          <Link className='btn btn-primary btn-lg mt-2 mb-2' to='/movies/new'>
-            Add Movie
-          </Link>
+          {user && (
+            <Link className='btn btn-primary btn-lg mt-2 mb-2' to='/movies/new'>
+              Add Movie
+            </Link>
+          )}
           <p className='lead'>There are {totalCount} movies in the database</p>
           <MoviesTable
             movies={movies}
@@ -118,6 +121,7 @@ class Movies extends Component {
             onLike={this.handleLike}
             onDelete={this.handleDelete}
             onSort={this.handleSort}
+            user={user}
           />
           <Pagination
             currentPage={currentPage}
